@@ -3,10 +3,7 @@ import java.sql.*;
 import javax.sql.*;
 
 public class Conecta_PRuebas1 {
-
-    
     public static void main(String[] args){
-        
         
         try {
 
@@ -31,10 +28,7 @@ public class Conecta_PRuebas1 {
             System.out.println("ERROR, NO CONECTA!");
             e.printStackTrace(); //IMPRIME EL ERROR EN PANTALLA
         }
-
-        
     }
-
 }
 
 /*
