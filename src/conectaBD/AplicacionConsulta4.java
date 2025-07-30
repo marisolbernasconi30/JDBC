@@ -2,6 +2,7 @@ package conectaBD;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 
 
 public class AplicacionConsulta4 {
@@ -61,11 +62,30 @@ class Marco_Aplicacion extends JFrame{
 		
 		add(botonConsulta, BorderLayout.SOUTH);
 		
-		
+		//------CONEXION CON LA BASE DE DATOS-----------
+
+    try {
+
+        Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
+        Statement sentencia=conexion.createStatement();
+        String consultaSQL= "SELECT DISTINCTROW SECCION FROM PRODUCTOS";
+        ResultSet rs=sentencia.executeQuery(consultaSQL);
+
+        while(rs.next()){
+            secciones.addItem(rs.getString("SECCION"));
+        }
+        rs.close();
+
+
+
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
 		
 	}	
 		
-
+ //------NOMBRE DE LAS VARIABLES -------
 	
 	private JComboBox secciones;
 	
@@ -77,5 +97,19 @@ class Marco_Aplicacion extends JFrame{
 	
 }
 
+
+/* 
+ *  pwd
+ * 
+ * cd /home/marisol/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity
+ * 
+ * ls lib/mysql-connector-java-9.4.0.jar
+ * 
+ * ls ~/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/lib/mysql-connector-java-9.4.0.jar
+ * 
+ * 
+ javac -d bin -cp "lib/mysql-connector-java-9.4.0.jar" src/conectaBD/AplicacionConsulta4.java
+ java -cp "bin:lib/mysql-connector-java-9.4.0.jar" conectaBD.AplicacionConsulta4
+ */
 
 
