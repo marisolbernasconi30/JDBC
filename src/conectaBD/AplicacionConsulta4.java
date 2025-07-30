@@ -68,6 +68,8 @@ class Marco_Aplicacion extends JFrame{
 
         Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
         Statement sentencia=conexion.createStatement();
+
+        //------PRIMER JCOMBOBOX DE SECCION-------
         String consultaSQL= "SELECT DISTINCTROW SECCION FROM PRODUCTOS";
         ResultSet rs=sentencia.executeQuery(consultaSQL);
 
@@ -77,9 +79,19 @@ class Marco_Aplicacion extends JFrame{
         rs.close();
 
 
+        //------SEGUNDA JCOMBOBOX DE PAISES-------
+        consultaSQL= "SELECT DISTINCTROW PAISORIGEN FROM PRODUCTOS";
+        rs=sentencia.executeQuery(consultaSQL);
+
+        while(rs.next()){
+            paises.addItem(rs.getString("PAISORIGEN"));
+        }
+        rs.close();
+
+
 
     } catch (Exception e) {
-        // TODO Auto-generated catch block
+        
         e.printStackTrace();
     }
 		
