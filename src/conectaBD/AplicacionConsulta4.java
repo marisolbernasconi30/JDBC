@@ -111,11 +111,29 @@ class Marco_Aplicacion extends JFrame{
     private void ejecutaConsulta(){
         ResultSet rs=null;
         try {
-            String seccion=(String)secciones.getSelectedItem(); //GUARDAMOS EL ELEMENTO SELECCIONADO EN EL JCOMBOBOX
-            enviaConsultaSeccion=conexion.prepareStatement(consultaSeccion);
+            resultado.setText(""); //LIMPIA EL JTEXTAREA
 
-            enviaConsultaSeccion.setString(1, seccion); //PARAMETRIZAMOS LA CONSULTA CON EL ELEMENTO SELECCIONADO
-            rs=enviaConsultaSeccion.executeQuery(); //EJECUTAMOS LA CONSULTA
+            String seccion=(String)secciones.getSelectedItem(); //GUARDAMOS EL ELEMENTO SELECCIONADO EN EL PRIMER JCOMBOBOX
+            String pais=(String)paises.getSelectedItem(); //GUARDAMOS EL ELEMENTO SELECCIONADO EN EL SEGUNDO JCOMBOBOX
+
+
+            if(!seccion.equals("Todos")&& pais.equals("Todos")){ //PRIMER OPCION
+               enviaConsultaSeccion=conexion.prepareStatement(consultaSeccion);
+               enviaConsultaSeccion.setString(1, seccion); //PARAMETRIZAMOS LA CONSULTA CON EL ELEMENTO SELECCIONADO
+               rs=enviaConsultaSeccion.executeQuery(); //EJECUTAMOS LA CONSULTA
+            }else if(seccion.equals("Todos")&& !pais.equals("Todos")){
+               enviaConsultaPais=conexion.prepareStatement(consultaPais);
+               enviaConsultaPais.setString(1, pais); //PARAMETRIZAMOS LA CONSULTA CON EL ELEMENTO SELECCIONADO
+               rs=enviaConsultaPais.executeQuery(); //EJECUTAMOS LA CONSULTA
+            }else if(!seccion.equals("Todos")&& !pais.equals("Todos")){
+               enviaConsultaTodos=conexion.prepareStatement(consultaTodos);
+               enviaConsultaTodos.setString(1, seccion);
+               enviaConsultaTodos.setString(2, pais);
+                //PARAMETRIZAMOS LA CONSULTA CON EL ELEMENTO SELECCIONADO
+               rs=enviaConsultaTodos.executeQuery(); //EJECUTAMOS LA CONSULTA
+            }
+           
+
             while(rs.next()){
                 //AQUI AÑADIMOS LOS RESULTADOS AL JTEXTAREA
                 resultado.append(rs.getString("NOMBREARTICULO") + " | " + rs.getString("SECCION") + " | " + rs.getInt("PRECIO") + " | " + rs.getString("PAISORIGEN") + "\n");
@@ -132,13 +150,18 @@ class Marco_Aplicacion extends JFrame{
  
     private Connection conexion;   
 
-    private PreparedStatement enviaConsulta; // ACA ALMACENO LA CONSULTA PREPARADA
-
     private PreparedStatement enviaConsultaPais; // ACA ALMACENO LA CONSULTA PREPARADA PARA EL PAIS
+
+    private PreparedStatement enviaConsultaTodos; // ACA ALMACENO LA CONSULTA PREPARADA PARA LA SECCION
+
 	private PreparedStatement enviaConsultaSeccion; // ACA ALMACENO LA CONSULTA PREPARADA
 
     private final String consultaSeccion="SELECT NOMBREARTICULO, SECCION, PRECIO, PAISORIGEN FROM PRODUCTOS WHERE SECCION=?" ; //PARA LA CONSULTA PARAMETRIZADA
 
+    private final String consultaPais="SELECT NOMBREARTICULO, SECCION, PRECIO, PAISORIGEN FROM PRODUCTOS WHERE PAISORIGEN=?" ; //PARA LA CONSULTA PARAMETRIZADA
+    
+    private final String consultaTodos="SELECT NOMBREARTICULO, SECCION, PRECIO, PAISORIGEN FROM PRODUCTOS WHERE PAISORIGEN=? AND SECCION=?" ; //PARA LA CONSULTA PARAMETRIZADA
+    
 	private JComboBox secciones;
 	
 	private JComboBox paises;
