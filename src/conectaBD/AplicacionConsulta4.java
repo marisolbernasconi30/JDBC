@@ -1,7 +1,10 @@
 package conectaBD;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 
 
@@ -59,6 +62,14 @@ class Marco_Aplicacion extends JFrame{
 		add(resultado, BorderLayout.CENTER);
 		
 		JButton botonConsulta=new JButton("Consulta");	
+
+        botonConsulta.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //resultado.setText(""); //LIMPIA EL JTEXTAREA
+                ejecutaConsulta(); //EJECUTA LA CONSULTA
+            }
+        }); //AL HACER CLICK EN EL BOTON SE EJECUTA LA CONSULTA
 		
 		add(botonConsulta, BorderLayout.SOUTH);
 		
@@ -66,7 +77,7 @@ class Marco_Aplicacion extends JFrame{
 
     try {
 
-        Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
+         conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
         Statement sentencia=conexion.createStatement();
 
         //------PRIMER JCOMBOBOX DE SECCION-------
@@ -97,8 +108,37 @@ class Marco_Aplicacion extends JFrame{
 		
 	}	
 		
+    private void ejecutaConsulta(){
+        ResultSet rs=null;
+        try {
+            String seccion=(String)secciones.getSelectedItem(); //GUARDAMOS EL ELEMENTO SELECCIONADO EN EL JCOMBOBOX
+            enviaConsultaSeccion=conexion.prepareStatement(consultaSeccion);
+
+            enviaConsultaSeccion.setString(1, seccion); //PARAMETRIZAMOS LA CONSULTA CON EL ELEMENTO SELECCIONADO
+            rs=enviaConsultaSeccion.executeQuery(); //EJECUTAMOS LA CONSULTA
+            while(rs.next()){
+                //AQUI AÑADIMOS LOS RESULTADOS AL JTEXTAREA
+                resultado.append(rs.getString("NOMBREARTICULO") + " | " + rs.getString("SECCION") + " | " + rs.getInt("PRECIO") + " | " + rs.getString("PAISORIGEN") + "\n");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        
+    }
+
  //------NOMBRE DE LAS VARIABLES -------
-	
+ 
+    private Connection conexion;   
+
+    private PreparedStatement enviaConsulta; // ACA ALMACENO LA CONSULTA PREPARADA
+
+    private PreparedStatement enviaConsultaPais; // ACA ALMACENO LA CONSULTA PREPARADA PARA EL PAIS
+	private PreparedStatement enviaConsultaSeccion; // ACA ALMACENO LA CONSULTA PREPARADA
+
+    private final String consultaSeccion="SELECT NOMBREARTICULO, SECCION, PRECIO, PAISORIGEN FROM PRODUCTOS WHERE SECCION=?" ; //PARA LA CONSULTA PARAMETRIZADA
+
 	private JComboBox secciones;
 	
 	private JComboBox paises;
