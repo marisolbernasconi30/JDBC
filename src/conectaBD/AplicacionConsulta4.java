@@ -127,8 +127,8 @@ class Marco_Aplicacion extends JFrame{
                rs=enviaConsultaPais.executeQuery(); //EJECUTAMOS LA CONSULTA
             }else if(!seccion.equals("Todos")&& !pais.equals("Todos")){
                enviaConsultaTodos=conexion.prepareStatement(consultaTodos);
-               enviaConsultaTodos.setString(1, seccion);
-               enviaConsultaTodos.setString(2, pais);
+               enviaConsultaTodos.setString(1, pais);
+               enviaConsultaTodos.setString(2, seccion);
                 //PARAMETRIZAMOS LA CONSULTA CON EL ELEMENTO SELECCIONADO
                rs=enviaConsultaTodos.executeQuery(); //EJECUTAMOS LA CONSULTA
             }
