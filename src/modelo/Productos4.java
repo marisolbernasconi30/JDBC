@@ -2,7 +2,7 @@ package modelo;
 import java.sql.Connection;
 
 public class Productos4 {
-
+//UNO DE LOS REQUISITOS ES ENCAPSULAR LOS ATRIBUTOS, POR LO QUE LOS HAREMOS PRIVADOS
     private String codigoArticulo;
     private String seccionArticulo;
     private String nombreArticulo;
