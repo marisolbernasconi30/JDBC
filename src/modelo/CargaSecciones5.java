@@ -17,7 +17,7 @@ public class CargaSecciones5{
         Conneccion acccesoBBDD= conexion.dameConexion();
         try{
             Statement sentencia = acccesoBBDD.createStatement();
-            ResultSet resultado = sentencia.executeQuery("SELECT DISTINCTROW SECCION FROM PRODUCTOS");
+            resultado= sentencia.executeQuery("SELECT DISTINCTROW SECCION FROM PRODUCTOS");
 
             while(resultado.next()){
                 miproducto = new Productos();
@@ -43,4 +43,5 @@ public class CargaSecciones5{
     }
     
     Conexion3 conexion;
+    public ResultSet resultado;
 }
