@@ -1,6 +1,7 @@
 package modelo;
 import controlador.*;
 import java.sql.*;
+//import modelo.*;
 //SE ENCARGA DE HACER LA CONSULTA SQL A LA BASE DE DATOS PARA CARGAR LAS SECCIONES
 // TAMBIEN DE GUARDAR LOS REGISTROS EN EL RESULTSET
 
@@ -13,14 +14,14 @@ public class CargaSecciones5{
 
     public String EjecutaConsulta(){
 
-        Productos miproducto=null;
-        Conneccion acccesoBBDD= conexion.dameConexion();
+        Productos4 miproducto=null;
+        Connection acccesoBBDD= conexion.dameConexion(); //conecto con la base de datos 
         try{
             Statement sentencia = acccesoBBDD.createStatement();
             resultado= sentencia.executeQuery("SELECT DISTINCTROW SECCION FROM PRODUCTOS");
 
             while(resultado.next()){
-                miproducto = new Productos();
+                miproducto = new Productos4();
                // miproducto.setCodigoArticulo(resultado.getString("CODIGOARTICULO"));
               //  miproducto.setNombreArticulo(resultado.getString("NOMBREARTICULO"));
                 miproducto.setSeccionArticulo(resultado.getString("SECCION"));
