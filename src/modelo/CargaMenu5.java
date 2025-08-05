@@ -5,10 +5,10 @@ import java.sql.*;
 //SE ENCARGA DE HACER LA CONSULTA SQL A LA BASE DE DATOS PARA CARGAR LAS SECCIONES
 // TAMBIEN DE GUARDAR LOS REGISTROS EN EL RESULTSET
 
-public class CargaSecciones5{
+public class CargaMenu5{
 
 
-    public CargaSecciones5() {
+    public CargaMenu5() {
       conexion = new Conexion3();  
     }
 
@@ -20,18 +20,18 @@ public class CargaSecciones5{
             Statement sentencia = acccesoBBDD.createStatement();
             resultado= sentencia.executeQuery("SELECT DISTINCTROW SECCION FROM PRODUCTOS");
 
-            while(resultado.next()){
-                resultado.previous(); //para que no se salte el primer registro
+          //  while(resultado.next()){
+               // resultado.previous(); //para que no se salte el primer registro
                 miproducto = new Productos4();
-               // miproducto.setCodigoArticulo(resultado.getString("CODIGOARTICULO"));
-              //  miproducto.setNombreArticulo(resultado.getString("NOMBREARTICULO"));
+                  // miproducto.setCodigoArticulo(resultado.getString("CODIGOARTICULO"));
+                  //  miproducto.setNombreArticulo(resultado.getString("NOMBREARTICULO"));
                 miproducto.setSeccionArticulo(resultado.getString("SECCION"));
-                //miproducto.setPrecioArticulo(resultado.getInt("PRECIO"));
-                //miproducto.setPaisOrigen(resultado.getString("PAISORIGEN"));
+                   //miproducto.setPrecioArticulo(resultado.getInt("PRECIO"));
+                   //miproducto.setPaisOrigen(resultado.getString("PAISORIGEN"));
 
-                return miproducto.getSeccionArticulo();
-               // System.out.println(miproducto.getCodigoArticulo() + " - " + miproducto.getNombreArticulo() + " - " + miproducto.getSeccionArticulo() + " - " + miproducto.getPrecioArticulo() + " - " + miproducto.getPaisOrigen());
-            }
+               // return miproducto.getSeccionArticulo();
+                   // System.out.println(miproducto.getCodigoArticulo() + " - " + miproducto.getNombreArticulo() + " - " + miproducto.getSeccionArticulo() + " - " + miproducto.getPrecioArticulo() + " - " + miproducto.getPaisOrigen());
+           // }
             resultado.close();
 
 
