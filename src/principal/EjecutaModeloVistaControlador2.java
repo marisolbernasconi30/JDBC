@@ -14,14 +14,6 @@ public static void main(String[] args)  {
 }
 }
 
-
-/*
- * pwd
- * cd /home/marisol/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/src
-   javac principal/EjecutaModeloVistaControlador2.java
-   java principal.EjecutaModeloVistaControlador2
-
- */
 /*
 *  pwd
 *
@@ -31,6 +23,11 @@ public static void main(String[] args)  {
 *
 * ls ~/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/lib/mysql-connector-java-9.4.0.jar
 *
-javac -d bin -cp "lib/mysql-connector-java-9.4.0.jar" src/conectaBD/AplicacionConsulta4.java
-java -cp "bin:lib/mysql-connector-java-9.4.0.jar" conectaBD.AplicacionConsulta4
+# Compilar todo
+javac -d bin -cp "lib/mysql-connector-java-9.4.0.jar" $(find src -name "*.java")
+
+# Ejecutar
+java -cp "bin:lib/mysql-connector-java-9.4.0.jar" principal.EjecutaModeloVistaControlador2
+
+
 */
