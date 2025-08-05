@@ -1,5 +1,5 @@
 package modelo;
-import controlador.*;
+//import controlador.*;
 import java.sql.*;
 //import modelo.*;
 //SE ENCARGA DE HACER LA CONSULTA SQL A LA BASE DE DATOS PARA CARGAR LAS SECCIONES
@@ -21,6 +21,7 @@ public class CargaSecciones5{
             resultado= sentencia.executeQuery("SELECT DISTINCTROW SECCION FROM PRODUCTOS");
 
             while(resultado.next()){
+                resultado.previous(); //para que no se salte el primer registro
                 miproducto = new Productos4();
                // miproducto.setCodigoArticulo(resultado.getString("CODIGOARTICULO"));
               //  miproducto.setNombreArticulo(resultado.getString("NOMBREARTICULO"));
