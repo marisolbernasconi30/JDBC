@@ -22,3 +22,15 @@ public static void main(String[] args)  {
    java principal.EjecutaModeloVistaControlador2
 
  */
+/*
+*  pwd
+*
+* cd /home/marisol/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity
+*
+* ls lib/mysql-connector-java-9.4.0.jar
+*
+* ls ~/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/lib/mysql-connector-java-9.4.0.jar
+*
+javac -d bin -cp "lib/mysql-connector-java-9.4.0.jar" src/conectaBD/AplicacionConsulta4.java
+java -cp "bin:lib/mysql-connector-java-9.4.0.jar" conectaBD.AplicacionConsulta4
+*/

@@ -1,6 +1,7 @@
 package vista;
 import java.awt.*;
 import javax.swing.*;
+import controlador.ControladorCargaSecciones6;
 
 
 public class Marco_Aplicacion1 extends JFrame {
@@ -47,6 +48,7 @@ public class Marco_Aplicacion1 extends JFrame {
 
         add(botonConsulta, BorderLayout.SOUTH);
 
+		addWindowListener(new ControladorCargaSecciones6(this));
 
 
 }
