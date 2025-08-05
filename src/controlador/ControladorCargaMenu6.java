@@ -21,8 +21,13 @@ public class ControladorCargaMenu6 extends WindowAdapter {
     obj.EjecutaConsulta();
 
     try {
-        while(obj.resultado.next()){
+        while(obj.resultado.next()){ //CON ESTE CARGO EL JCOMBOBOX DE LAS SECCIONES 
             elMarco.secciones.addItem(obj.resultado.getString(1));
+
+        }
+        while(obj.resultado2.next()){ //CON ESTE CARGO EL JCOMBOBOX DE LOS PAISES
+            elMarco.paises.addItem(obj.resultado2.getString(1));
+            
         }
         
     } catch (Exception e2) {

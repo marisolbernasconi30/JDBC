@@ -17,9 +17,13 @@ public class CargaMenu5{
         Productos4 miproducto=null;
         Connection acccesoBBDD= conexion.dameConexion(); //conecto con la base de datos 
         try{
+          
             Statement sentencia = acccesoBBDD.createStatement();
+            Statement paises = acccesoBBDD.createStatement();
+
             resultado= sentencia.executeQuery("SELECT DISTINCTROW SECCION FROM PRODUCTOS");
 
+            resultado2= paises.executeQuery("SELECT DISTINCTROW PAISORIGEN FROM PRODUCTOS");
           //  while(resultado.next()){
                // resultado.previous(); //para que no se salte el primer registro
                 miproducto = new Productos4();
@@ -27,12 +31,13 @@ public class CargaMenu5{
                   //  miproducto.setNombreArticulo(resultado.getString("NOMBREARTICULO"));
                 miproducto.setSeccionArticulo(resultado.getString("SECCION"));
                    //miproducto.setPrecioArticulo(resultado.getInt("PRECIO"));
-                   //miproducto.setPaisOrigen(resultado.getString("PAISORIGEN"));
+                miproducto.setPaisOrigen(resultado2.getString("PAISORIGEN"));
 
                // return miproducto.getSeccionArticulo();
                    // System.out.println(miproducto.getCodigoArticulo() + " - " + miproducto.getNombreArticulo() + " - " + miproducto.getSeccionArticulo() + " - " + miproducto.getPrecioArticulo() + " - " + miproducto.getPaisOrigen());
            // }
-            resultado.close();
+          //  resultado.close();
+          //  resultado2.close();
 
 
         }catch(Exception e){
@@ -44,6 +49,7 @@ public class CargaMenu5{
         // SI NO, NO SE PUEDE HACER EL RETURN DE UN METODO QUE DEVUELVE UN STRING
     }
     
-    Conexion3 conexion;
+    public Conexion3 conexion;
     public ResultSet resultado;
+    public ResultSet resultado2;
 }

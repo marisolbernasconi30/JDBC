@@ -55,7 +55,7 @@ public class Marco_Aplicacion1 extends JFrame {
 
     public JComboBox secciones;
 	
-	private JComboBox paises;
+	public JComboBox paises;
 	
 	private JTextArea resultado;	
 
