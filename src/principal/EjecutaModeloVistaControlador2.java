@@ -2,7 +2,7 @@ package principal;
 import vista.Marco_Aplicacion1; //IMPORTO EL PAQUETE QUE CREÉ
 import javax.swing.*;
 
-public class EjecutaModeloVistaControlador2 {
+public class EjecutaModeloVistaControlador2 {       
 public static void main(String[] args)  {
     
     Marco_Aplicacion1 mimarco = new Marco_Aplicacion1(); //CREO UN OBJETO DE LA CLASE MARCO_APLICACION1
@@ -13,6 +13,12 @@ public static void main(String[] args)  {
 
 }
 }
+
+
+
+
+
+
 
 /*
 *  pwd

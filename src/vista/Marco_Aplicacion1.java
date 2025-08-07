@@ -48,6 +48,8 @@ public class Marco_Aplicacion1 extends JFrame {
 
         add(botonConsulta, BorderLayout.SOUTH);
 
+		botonConsulta.addActionListener(new controlador.ControladorBotonEjecuta8(this)); //pongo el boton a la escucha, lo instancio, y le pongo el propio marco como parametro con el this
+
 		addWindowListener(new ControladorCargaMenu6(this));
 
 
@@ -57,6 +59,6 @@ public class Marco_Aplicacion1 extends JFrame {
 	
 	public JComboBox paises;
 	
-	private JTextArea resultado;	
+	public JTextArea resultado;	
 
 }

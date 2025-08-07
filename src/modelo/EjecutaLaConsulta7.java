@@ -21,3 +21,4 @@ public class EjecutaLaConsulta7{
 
     private String pruebas;
 }
+
