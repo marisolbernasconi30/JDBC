@@ -1,6 +1,7 @@
 package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 import modelo.*;
 import vista.*;
 
@@ -16,14 +17,29 @@ public class ControladorBotonEjecuta8 implements ActionListener{
         String seleccionSeccion = (String)elmarco.secciones.getSelectedItem();
         String seleccionPais = (String)elmarco.paises.getSelectedItem(); //para almacenar lo que escoje el usuario en el JComboBox
         
-        //esto escribe en el JTextArea lo que el usuario eligio
-        elmarco.resultado.append(nueva_consulta.filtraBBDD(seleccionSeccion, seleccionPais));
-        elmarco.resultado.append("\n"); //para que cada vez que pulse el boton de consulta, me lo escriba en una nueva linea
+        resultadoConsulta = nueva_consulta.filtraBBDD(seleccionSeccion, seleccionPais);
+        try { 
+            elmarco.resultado.setText(""); //limpiar el JTextArea
+            while(resultadoConsulta.next()) {
+                elmarco.resultado.append(resultadoConsulta.getString(1));
+                elmarco.resultado.append(" - ");
+                elmarco.resultado.append(resultadoConsulta.getString(2));
+                elmarco.resultado.append(" - ");
+                elmarco.resultado.append(resultadoConsulta.getString(3));
+                elmarco.resultado.append(" - ");
+                elmarco.resultado.append(resultadoConsulta.getString(4));
+                elmarco.resultado.append("\n");
+            }
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
     
     EjecutaLaConsulta7 nueva_consulta= new EjecutaLaConsulta7();
     private Marco_Aplicacion1 elmarco;
 
+    private ResultSet resultadoConsulta;
 
     
 }
