@@ -6,7 +6,8 @@ public class AñadeClientePedidos1 {
     
     public static void main(String[] args) {
         
-Connection conexion = null;
+     Connection conexion = null;
+     
         try {
 
             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
