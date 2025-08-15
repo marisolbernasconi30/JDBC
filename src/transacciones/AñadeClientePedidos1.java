@@ -6,10 +6,12 @@ public class AñadeClientePedidos1 {
     
     public static void main(String[] args) {
         
-
+Connection conexion = null;
         try {
 
-            Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
+
+            conexion.setAutoCommit(false); // Desactivamos el auto-commit para manejar transacciones y me lo reconozca como bloque. 
 
             Statement miSentencia = conexion.createStatement();
 
@@ -19,8 +21,10 @@ public class AñadeClientePedidos1 {
             miSentencia.executeUpdate(sentenciaSQL1);
 
             //ESTA SENTENCIA ESTÁ MAL ESCRITA PORQUE ESTÁ MAL EL NOMBRE DE LA COLUMNA (VA SIN EL _)
-            String sentenciaSQL2="INSERT INTO PEDIDOS (NUMERO_PEDIDO, CODIGOCLIENTE, FECHAPEDIDO, FORMAPAGO, DESCUENTO, ENVIADO) VALUES ('023', 'CL023', '2024-06-20', 'TRANSFERENCIA', '0.15', 'FALSO')";
+            String sentenciaSQL2="INSERT INTO PEDIDOS (NUMEROPEDIDO, CODIGOCLIENTE, FECHAPEDIDO, FORMAPAGO, DESCUENTO, ENVIADO) VALUES ('023', 'CL023', '2024-06-20', 'TRANSFERENCIA', '0.15', 'FALSO')";
             miSentencia.executeUpdate(sentenciaSQL2);
+
+            conexion.commit(); // Si todo ha ido bien, confirmamos los cambios en la base de datos.
             
             System.out.println("Cliente y pedido añadidos correctamente.");
 
@@ -34,9 +38,16 @@ public class AñadeClientePedidos1 {
             
                 
         } catch (Exception e) {
-
-            e.printStackTrace();
             System.out.println("No se ha podido añadir el cliente y el pedido.");
+            try {
+                conexion.rollback(); //me asegura la integridad de los datos, me deja la bdd como estaba antes de la transacción.
+                System.out.println("Cambios deshechos.");
+            } catch (SQLException e1) {
+                System.out.println("Error al deshacer los cambios.");
+                e1.printStackTrace();
+            } // Si hay un error, deshacemos los cambios
+            e.printStackTrace();
+
 
         }
 
