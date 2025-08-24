@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.*;
+
 
 
 
@@ -64,11 +66,27 @@ class Lamina extends JPanel{ //CLASE LAMINA
 
         miConexion=null;
 
+        String datosArray [] = new String[3];
+
         try{
-            //se conecta con la base de datos solamente 
-            miConexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas","root","");
+            entrada=new FileReader("/home/marisol/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/datos_config.txt"); // LEO EL ARCHIVO que ya esta creado con los datos dentro
+            BufferedReader mibuffer=new BufferedReader(entrada); // PARA LEER EL ARCHIVO
+            for (int i=0;i<=2;i++){ //VA DE CERO A DOS PORQUE TENGO QUE LEER DOS LÍNEAS (fichero y usuario, no la contraseña)
+                datosArray[i]=mibuffer.readLine(); // ALMACENO CADA LINEA DEL ARCHIVO EN CADA POSICION DEL ARRAY
+            }
+
+            //hasta acá tengo todos los datos en el array 
+
+
+            //se conecta con la base de datos solamente  y le paso los parametros del array que recien creé. 
+            miConexion=DriverManager.getConnection(datosArray[0],datosArray[1],datosArray[2]); //ME CONECTO A LA BASE DE DATOS
             
-        }catch(Exception e){
+            entrada.close(); //cierro el archivo
+
+        }catch(IOException e){ //excepcion para el input-output
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "No se ha encontrado el archivo"); //si el archivo no existe, etc
+        }catch(Exception e){ //por si tengo otra excepcion
             e.printStackTrace();
         }   
     } 
@@ -129,6 +147,7 @@ class Lamina extends JPanel{ //CLASE LAMINA
     private JTextArea area_texto;
     private JComboBox combo1;
     private Connection miConexion;
+    private FileReader entrada;
     
 }
 
