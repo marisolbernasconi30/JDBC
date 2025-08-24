@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
+
 public class AppTrabajoFinal1 {
     
     public static void main(String[] args) {
@@ -24,45 +25,26 @@ class Marco_AplicacionFinal extends JFrame{
        setTitle ("Aplicacion Final BBDD");
        setBounds(500,300,400,400);     
        setLayout(new BorderLayout());
-       JPanel menus=new JPanel();
-       menus.setLayout(new FlowLayout());
+       Lamina milamina=new Lamina();
+       add(milamina);
+    }
 
-       tablasConsulta=new JComboBox();
-       tablasConsulta.setEditable(false);
-       tablasConsulta.addItem("Todos");
-       
-       resultado= new JTextArea(4,50);
-       resultado.setEditable(false);
-       add(resultado);
-       menus.add(tablasConsulta);
-    
-       add(menus, BorderLayout.NORTH);
-       add(resultado, BorderLayout.CENTER);
-       JButton botonConsulta=new JButton("Consulta"); 
-       add(botonConsulta, BorderLayout.SOUTH); 
-       //------CONEXION CON LA BASE DE DATOS-----------
+}
 
-   try {
+class Lamina extends JPanel{
+    public Lamina(){
+         setLayout(new BorderLayout());
+         combo1=new JComboBox();
+         area_texto=new JTextArea(8,20);
+            add(combo1, BorderLayout.NORTH);
+            add(area_texto, BorderLayout.CENTER);
+    }
 
-       Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
-       Statement sentencia=conexion.createStatement();
-       //------PRIMER JCOMBOBOX DE SECCION-------
-       String consultaSQL= "SELECT DISTINCTROW * FROM PRODUCTOS";
-       ResultSet rs=sentencia.executeQuery(consultaSQL);
-       while(rs.next()){
-           tablasConsulta.addItem(rs.getString("*"));
-       }
-       rs.close();
-       
-   } catch (Exception e) {
-      
-       e.printStackTrace();
-   }   
-   }  
-//------NOMBRE DE LAS VARIABLES -------
-   private JComboBox tablasConsulta;
-  
-   private JTextArea resultado;     
+    //VARIABLES
+    private JTextArea area_texto;
+    private JComboBox combo1;
+}
+
 
 
 /*
@@ -77,6 +59,4 @@ class Marco_AplicacionFinal extends JFrame{
 javac -d bin -cp "lib/mysql-connector-java-9.4.0.jar" src/ejercicioPracticoFinal/AppTrabajoFinal1.java
 java -cp "bin:lib/mysql-connector-java-9.4.0.jar" ejercicioPracticoFinal.AppTrabajoFinal1
 */
-
-}
 
