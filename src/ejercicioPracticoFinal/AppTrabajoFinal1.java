@@ -7,14 +7,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.*;
-
-
-
 
 public class AppTrabajoFinal1 {
     
@@ -69,7 +66,33 @@ class Lamina extends JPanel{ //CLASE LAMINA
         String datosArray [] = new String[3];
 
         try{
-            entrada=new FileReader("/home/marisol/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/datos_config.txt"); // LEO EL ARCHIVO que ya esta creado con los datos dentro
+
+            //ESTA MAL EL NOMBRE DEL TXT, ENTONCES SE VA AL CATCH Y ME ABRE EL EXPLORADOR DE ARCHIVOS
+            entrada=new FileReader("/home/marisol/eclipse-workspace/PROYECTO/JDBC/JavaDataBaseConnectivity/datosss_config.txt"); // LEO EL ARCHIVO que ya esta creado con los datos dentro
+            
+        
+         } catch (IOException e) {
+
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo de configuración, por favor seleccione el archivo");
+            JFileChooser chooser = new JFileChooser(); //ABRO EL EXPLORADOR DE ARCHIVOS PARA QUE EL USUARIO BUSQUE EL ARCHIVO
+            FileNameExtensionFilter filter = new FileNameExtensionFilter( "Archivo txt ", "txt"); //FILTRO PARA QUE SOLO APAREZCAN LOS ARCHIVOS TXT
+            chooser.setFileFilter(filter); //AÑADO EL FILTRO AL EXPLORADOR
+            int returnVal = chooser.showOpenDialog(this);  //ABRO EL EXPLORADOR
+   
+            if(returnVal == JFileChooser.APPROVE_OPTION) { //
+            //System.out.println("You chose to open this file: " + chooser.getSelectedFile().getAbsolutePath()); //ME DA LA RUTA DEL ARCHIVO
+              try {
+                entrada=new FileReader(chooser.getSelectedFile().getAbsolutePath());
+              } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+              } //LEO EL ARCHIVO QUE HA SELECCIONADO EL USUARIO
+            }
+
+        }   
+            
+           try{
+
+            
             BufferedReader mibuffer=new BufferedReader(entrada); // PARA LEER EL ARCHIVO
             for (int i=0;i<=2;i++){ //VA DE CERO A DOS PORQUE TENGO QUE LEER DOS LÍNEAS (fichero y usuario, no la contraseña)
                 datosArray[i]=mibuffer.readLine(); // ALMACENO CADA LINEA DEL ARCHIVO EN CADA POSICION DEL ARRAY
@@ -83,13 +106,13 @@ class Lamina extends JPanel{ //CLASE LAMINA
             
             entrada.close(); //cierro el archivo
 
-        }catch(IOException e){ //excepcion para el input-output
+
+        } catch(Exception e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "No se ha encontrado el archivo"); //si el archivo no existe, etc
-        }catch(Exception e){ //por si tengo otra excepcion
-            e.printStackTrace();
-        }   
-    } 
+
+        } 
+    }   
+    
 
     public void obtenerTablas(){ // ESTE MÉTODO ME OBTIENE LAS TABLAS DE LA BASE DE DATOS
         ResultSet miResultet=null; 
